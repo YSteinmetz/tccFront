@@ -8,7 +8,14 @@ export function ButonBox(){
     
     return(
         <div className={styles.contentWrapper}>
-            <h1>I'm a button Box</h1>
+            <div className={styles.contentButtonsWrapper}>
+                <button className={styles.buttonCallOperator}> {"Chamar operador"} </button>
+                <button  
+                type="button" 
+                className={styles.buttonAcknowledgeAlarms}>
+                            <img className={styles.imageAcknowledgeAlarms} src={imagesWrapper.icons.pontoZero} alt="Ponto zero" />
+                </button>
+            </div>
         </div>
     )
 }
