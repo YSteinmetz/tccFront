@@ -20,11 +20,7 @@ type UserStatusProvider = {
 }
 
 export function UserStatusProvider(props: UserStatusProvider){
-    const 
+
     
-    return(
-        <UserStatusContext.Provider value={}>
-            {props.children}
-        </UserStatusContext.Provider>
-    );
+    return;
 }

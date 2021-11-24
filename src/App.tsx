@@ -9,10 +9,10 @@ function App() {
   return (
     <main className={styles.contentWrapper}>
       <DisplayBox />
-      <UserStatusProvider>
-      <ButonBox />
-      </UserStatusProvider>
       <StatusBox />
+      <ButonBox />
+      
+      
     </main>
   )
 }
