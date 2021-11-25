@@ -26,23 +26,20 @@ export function StatusBox(){
         Vibracao: "0",
         Ruido: "0"
     }
-    var dispImg = {
-        Luminosidade: imagesWrapper.luminosidadeImages.normalLuminosidade,
-        Temperatura: imagesWrapper.temperaturaImages.normaltemperatura,
-        Vibracao: imagesWrapper.vibracaoImages.normalVibracao,
-        Ruido: imagesWrapper.ruidoImages.normalRuido
-    }
+
     
 
     
     const [calling, setCalling] = useState(false);
+    const [alertaLuminosidade, setalertaLuminosidade] = useState(false);
+    const [riscoLuminosidade, setriscoLuminosidade] = useState(false);
 
     useEffect(()=>{
         setInterval(()=>{
             if(counter >= 10){
                 counter = 0;
                 //console.log("I'm here");
-                //getUserState();
+                getUserState();
             }            
             counter++;
         },1000);
@@ -67,26 +64,26 @@ export function StatusBox(){
         });
 
         if(risco.Luminosidade == "1"){
+            setriscoLuminosidade(true);
             
-            dispImg.Luminosidade == imagesWrapper.luminosidadeImages.riscoLuminosidade;
         }else if(alerta.Luminosidade == "1"){
-            
-            dispImg.Luminosidade == imagesWrapper.luminosidadeImages.alertaLuminosidade;
+            setalertaLuminosidade(true);
         }else{
-            
-            dispImg.Luminosidade == imagesWrapper.luminosidadeImages.normalLuminosidade;
+            setriscoLuminosidade(false);
+            setalertaLuminosidade(false);
         }
+        console.log("Estou Aqui");
 
-        console.log(dispImg.Luminosidade);
+        
     }
 
     return(
         <div className={styles.contentWrapper}>
             <div className={styles.contentIcons}>
-                <img src={dispImg.Vibracao} alt="Vibracao" />
-                <img className={styles.contentIconLuminosidade} src={ dispImg.Luminosidade } alt="Luminosidade" />
-                <img className={styles.contentIconRuido} src={dispImg.Ruido} alt="Ruido" />
-                <img className={styles.contentIconTemperatura} src={dispImg.Temperatura} alt="Temperatura" />
+                <img src={imagesWrapper.vibracaoImages.normalVibracao} alt="Vibracao" />
+                <img className={styles.contentIconLuminosidade} src={ riscoLuminosidade == true ? imagesWrapper.luminosidadeImages.riscoLuminosidade : imagesWrapper.luminosidadeImages.normalLuminosidade } alt="Luminosidade" />
+                <img className={styles.contentIconRuido} src={imagesWrapper.ruidoImages.normalRuido} alt="Ruido" />
+                <img className={styles.contentIconTemperatura} src={imagesWrapper.temperaturaImages.normaltemperatura} alt="Temperatura" />
             </div>
         </div>
     )
