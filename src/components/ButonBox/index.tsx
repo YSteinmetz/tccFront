@@ -1,16 +1,37 @@
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { imagesWrapper } from '../../assets/images'
 import { UserStatusContext } from '../../context/getStatusIcon';
+import { api } from '../../services/api';
 import styles from './styles.module.scss'
 
 
 export function ButonBox(){
+    const [calling, setCalling] = useState(false);
+    async function callUser() {
+        if(!calling){
+            await api.get('callUser').then(response => {
+            setCalling(true);
+            })
+        }else{
+            await api.get('freeUser').then(response => {
+                setCalling(false)
+            })
+        }
+    }
     
+    async function acknowledgeAlarms() {
+        await api.get('acknowledge').then(response =>{
+            return;
+        })
+        
+    }
+
     return(
         <div className={styles.contentWrapper}>
             <div className={styles.contentButtonsWrapper}>
-                <button className={styles.buttonCallOperator}> {"Chamar operador"} </button>
-                <button  
+                <button onClick = {callUser} className={styles.buttonCallOperator}> {!!calling ? "Liberar operador" : "Chamar operador"} </button>
+                <button 
+                onClick = {acknowledgeAlarms} 
                 type="button" 
                 className={styles.buttonAcknowledgeAlarms}>
                             <img className={styles.imageAcknowledgeAlarms} src={imagesWrapper.icons.pontoZero} alt="Ponto zero" />
